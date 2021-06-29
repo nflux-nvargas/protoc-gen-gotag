@@ -97,6 +97,9 @@ func (v retag) Visit(n ast.Node) ast.Visitor {
 
 		for _, t := range newTags.Tags() {
 			oldTags.Set(t)
+                        if !t.HasOption("omitempty") {
+                                oldTags.AddOptions(t.Key, "omitempty")
+                        }
 		}
 
 		f.Tag.Value = "`" + oldTags.String() + "`"
